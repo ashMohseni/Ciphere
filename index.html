@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <title>Hello, world!</title>
+
+</head>
+<style>
+  body {
+    background-image: url("background3.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 900px;
+  }
+
+  span {
+    font-weight: bold;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  ::placeholder {
+    color: white;
+    opacity: 1;
+  }
+
+  .text {
+    padding: 10px 20px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 2px solid #9A7B3F;
+    background-color: inherit;
+    color: #242424;
+    font-weight: bold;
+  }
+
+  .text:focus {
+    background-color: rgb(227, 186, 79);
+  }
+
+  .number {
+    padding: 9px 20px;
+    border-radius: 5px;
+    border: 2px solid #9A7B3F;
+    background-color: rgba(228, 191, 33, .89);
+    color: #242424;
+  }
+
+  .number:focus {
+    background-color: rgb(227, 186, 79);
+  }
+
+  .btnDesign {
+    padding: 10px 40px;
+    opacity: 0.8;
+    transition: ease 0.5s;
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+
+  .btnDesign:hover {
+    transition: ease 0.5s;
+    opacity: 1;
+  }
+
+  .input-group-text {
+    width: 10%;
+  }
+
+  .formDesign {
+    /* border: 2px solid red; */
+    padding: 20px;
+    padding-left: -40px;
+    margin: 20px 350px 0px 350px;
+    background-color: rgba(33, 33, 33, .59);
+    border-radius: 20px;
+  }
+
+  #white {
+    color: white;
+  }
+
+  .white {
+    color: white;
+  }
+</style>
+
+<body>
+  <center>
+    <br><br>
+    <h1>Welcome to the <span>encription/decription</span> program!</h1><br>
+    <h3>Please insert your message for encription or decription. Please note that for the
+      <br>purpose of this assignment your massage can not be more than 100 character :) <h3>
+        <br>
+
+        <div class="formDesign" id="formDesign">
+          <form class="form" action="">
+            <h1 id="white"><span>Ciphere Tool</span></h1><br>
+            <p id="white">Please type the message here!</p>
+            <textarea id="text" class="text" rows="5" cols="50" name="encription" placeholder="Type your message here..." size="50" maxlength="100"></textarea>
+            <br><br>
+            <label for="exampleSelect1" id="white" >🔑 Write down your Key 🔑 </label><br>
+            <input type="text" name="key" value="" id="key" class="text" maxlength="10" ></input><br>
+            <br><br>
+            <button type="button" class="btn btn-info btnDesign" id="white" onclick="cription(true)"><span>Decript<span></button>
+            <button type="button" class="btn btn-danger btnDesign" id="white" onclick="cription(false)"><span>Encript<span></button>
+
+            <br><br>
+          </form>
+          <div class="new">
+            <br><br>
+            <h1 class="white" id="ans"><span></span></h1><br>
+            <p id="p1" class="white"></p>
+            <p id="p2" class="white"></p>
+          </div>
+          <div>
+  </center>
+
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript">
+function Check(kilid) {
+	var result = [];
+	for (var i = 0; i < kilid.length; i++) {
+		var character = kilid.charCodeAt(i);
+		if (CheckMeFirst(character))
+			result.push((character - 65) % 32);
+	}
+	return result;
+}
+
+function LetterDown(character) {
+	return 97 <= character && character <= 122;
+}
+
+function cription(trueOrfalse) {
+
+var kilid = Check(document.getElementById("key").value);
+
+	if (document.getElementById("key").value.length == 0) {
+	document.getElementById("ans").innerHTML = "ERROR";
+	document.getElementById("p1").innerHTML = "The key can not be empty!";
+	return;
+		}
+
+	if (kilid.length == 0) {
+		document.getElementById("ans").innerHTML = "ERROR";
+		document.getElementById("p1").innerHTML = "The key doesn't have any letters!";
+		return;
+	}
+
+	if (trueOrfalse) {
+		for (var i = 0; i < kilid.length; i++)
+			kilid[i] = (26 - kilid[i]) % 26;
+	}
+
+		var message = document.getElementById("text");
+		message.value = myCription(message.value, kilid);
+
+     document.getElementById("ans").innerHTML = "Your Message";
+     document.getElementById("p1").innerHTML = message.value;
+
+}
+
+
+function CheckMeFirst(character) {
+	return LetterUp(character) || LetterDown(character);
+}
+
+
+function myCription(capture, kilid) {
+	var solution = "";
+	for (var i = 0, j = 0; i < capture.length; i++) {
+		var character = capture.charCodeAt(i);
+
+		if (LetterUp(character)) {
+			var answer = String.fromCharCode((character - 65 + kilid[j % kilid.length]) % 26 + 65);
+			solution += answer;
+			j++;
+		}
+		else if (LetterDown(character)) {
+			var answer = String.fromCharCode((character - 97 + kilid[j % kilid.length]) % 26 + 97);
+			solution += answer;
+			j++;
+		}
+		else {
+			solution += capture.charAt(i);
+		}
+	}
+	return solution;
+}
+
+function LetterUp(character) {
+	return 65 <= character && character <= 90;
+}
+
+</script>
+</body>
+
+</html>
